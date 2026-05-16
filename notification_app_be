@@ -1,0 +1,65 @@
+# Notification System Design
+
+## Stage 1 - Real Time Notification System Design
+
+### Architecture
+
+The notification system consists of:
+
+- Backend Service
+- Notification Queue
+- Email Service
+- Push Notification Service
+- Database
+- Frontend Client
+
+### Flow
+
+1. User action triggers notification
+2. Backend validates request
+3. Notification stored in database
+4. Message pushed to queue
+5. Worker services process notifications
+6. Notifications delivered through:
+   - Email
+   - In-App Notification
+   - Push Notification
+
+### Technologies
+
+- Spring Boot
+- REST APIs
+- MySQL
+- Redis Queue
+- Firebase Cloud Messaging
+
+### Scalability
+
+- Queue based processing
+- Horizontal scaling
+- Load balancing
+- Async processing
+
+---
+
+# Stage 2 - Database Design
+
+## Notifications Table
+
+| Column Name      | Type         |
+|------------------|--------------|
+| id               | UUID         |
+| student_id       | UUID         |
+| notificationType | ENUM         |
+| message          | TEXT         |
+| isRead           | BOOLEAN      |
+| created_at       | TIMESTAMP    |
+
+## Indexes
+
+```sql
+CREATE INDEX idx_student_id ON notifications(student_id);
+
+CREATE INDEX idx_created_at ON notifications(created_at);
+
+CREATE INDEX idx_notification_type ON notifications(notificationType);
